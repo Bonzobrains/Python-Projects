@@ -20,3 +20,7 @@ def check_temp():
 
 
 schedule.every(10).minutes.do(check_temp)  # runs every 10 min.
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
