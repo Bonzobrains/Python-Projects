@@ -21,7 +21,7 @@ def check_temp():
     
     temp = ''.join(stdout)  # converts the stdout list to string
     with open(r'', 'a') as f:  # (r'raw string path to target .txt file', 'a') appends previous logs
-        f.write(temp + '\n')  # writes string temp to .txt file and adds new line
+        f.write(ct + ' ' + d + ' ' + '\n' + temp)  # writes string temp to .txt file and adds new line
 
 
 schedule.every(10).minutes.do(check_temp)  # runs every 10 min.
