@@ -1,0 +1,22 @@
+import time  # for delayed command input to allow a proper connection
+
+import paramiko  # for ssh connection
+import schedule  # to let it run automatically
+
+
+def check_temp():
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())  # missing host key policy
+    ssh.connect('', port=22, username='', password='')  # ssh connection details('server', port=port, username='username', password='password')
+    time.sleep(5)
+
+    stdin, stdout, stderr = ssh.exec_command('vcgencmd measure_temp')  # executes command
+    stdout = stdout.readlines()  # reads output of command
+    print(stdout)
+
+    temp = ''.join(stdout)  # converts the stdout list to string
+    with open(r'', 'a') as f:  # (r'raw string path to target .txt file', 'a') appends previous logs
+        f.write(temp + '\n')  # writes string temp to .txt file and adds new line
+
+
+schedule.every(10).minutes.do(check_temp)  # runs every 10 min.
