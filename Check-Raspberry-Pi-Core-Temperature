@@ -1,8 +1,8 @@
-import time  # for delayed command input to allow a proper connection
-
 import paramiko  # for ssh connection
 import schedule  # to let it run automatically
-
+from datetime import datetime   # logs time of day
+from datetime import date   # logs day of year
+import time  # for delayed command input to allow a proper connection
 
 def check_temp():
     ssh = paramiko.SSHClient()
@@ -13,7 +13,12 @@ def check_temp():
     stdin, stdout, stderr = ssh.exec_command('vcgencmd measure_temp')  # executes command
     stdout = stdout.readlines()  # reads output of command
     print(stdout)
-
+    
+    n = datetime.now()
+    t = date.today()
+    ct = n.strftime("%H:%M:%S")  # grabs time of day
+    d = t.strftime("%m/%d/%y")  # grabs day of year
+    
     temp = ''.join(stdout)  # converts the stdout list to string
     with open(r'', 'a') as f:  # (r'raw string path to target .txt file', 'a') appends previous logs
         f.write(temp + '\n')  # writes string temp to .txt file and adds new line
