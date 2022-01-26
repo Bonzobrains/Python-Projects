@@ -1,0 +1,17 @@
+from win10toast import ToastNotifier    # Notification system for windows
+import subprocess    # opens the file explorer
+import psutil   # checks the disk usage
+import schedule   # sets an increment of time in which the check is to performed
+
+def check_disk(): 
+    cd = psutil.disk_usage('/')   # gets the disk usage value
+    if (cd.used / 2**30, 1) > (0.7 * cd.total / 2**30, 1):   # determines if the disk is at 70% usage
+        Notify = ToastNotifier()    # notifies the user
+        Notify.show_toast('Warning', 'Your storage is at 70% usage')    # warning message in notification tray
+        subprocess.Popen(r'explorer')   # opens the windows file explorer for you
+    return
+
+schedule.every().hour.do(check_disk)    # runs check disk every hour
+
+while True:
+        schedule.run_pending()
