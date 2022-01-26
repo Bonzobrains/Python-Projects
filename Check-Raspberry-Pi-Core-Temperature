@@ -16,12 +16,12 @@ def check_temp():
     
     n = datetime.now()
     t = date.today()
-    ct = n.strftime("%H:%M:%S")  # grabs time of day
-    d = t.strftime("%m/%d/%y")  # grabs day of year
+    ct = n.strftime("%H:%M:%S ")  # grabs time of day
+    d = t.strftime("%m/%d/%y\n")  # grabs day of year and moves to next line
     
     temp = ''.join(stdout)  # converts the stdout list to string
     with open(r'', 'a') as f:  # (r'raw string path to target .txt file', 'a') appends previous logs
-        f.write(ct + ' ' + d + ' ' + '\n' + temp)  # writes string temp to .txt file and adds new line
+        f.write(ct + d + temp)  # writes string temp to .txt file
 
 
 schedule.every(10).minutes.do(check_temp)  # runs every 10 min.
