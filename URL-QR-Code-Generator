@@ -1,5 +1,5 @@
-import pyqrcode
-wp = input('Generate for: ')
-qrcode = pyqrcode.create((wp), error='L', version=27, mode='binary')
-qrcode.png('code.png', scale=6, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xcc])
-qrcode.show()
+import pyqrcode 
+wp = input('Generate for: ') # asks for input
+qrcode = pyqrcode.create((wp), error='L', version=27, mode='binary') # defines how the code s to be generated
+qrcode.png('code.png', scale=6, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xcc])   # sets size and colors
+qrcode.show() # shows the qr code
