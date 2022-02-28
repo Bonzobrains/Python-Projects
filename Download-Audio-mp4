@@ -6,4 +6,5 @@ def damp4():
     yt.streams.filter(only_audio=True)   # sets capture to be only audio
     stream = yt.streams.get_by_itag(140)   # sets tag for capture, bit rate, etc.
     stream.download()   # downloads filtered audio as mp4
+    return   # stops when video has been downloaded
 damp4() # calls function
