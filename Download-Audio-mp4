@@ -1,0 +1,9 @@
+from pytube import YouTube   # a simple tool to download and filter youtube videos
+
+def damp4():
+    yt = YouTube(input('Enter url:\n'))   # asks for input and creates yt object
+    print(yt.title)   # prints video's title
+    yt.streams.filter(only_audio=True)   # sets capture to be only audio
+    stream = yt.streams.get_by_itag(140)   # sets tag for capture, bit rate, etc.
+    stream.download()   # downloads filtered audio as mp4
+damp4() # calls function
