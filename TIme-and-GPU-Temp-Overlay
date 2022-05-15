@@ -1,0 +1,19 @@
+import tkinter, win32api, win32con, pywintypes, GPUtil
+from datetime import datetime
+def update():
+    gpu = GPUtil.getGPUs()[0]
+    root = tkinter.Label(text=datetime.now().strftime('%H:%M') + '\nGPU:' +  str(gpu.temperature), font=('Terminus','10'), fg='white', bg='black')
+    root.master.overrideredirect(True)
+    root.master.geometry("+1840+10")
+    root.master.lift()
+    root.master.wm_attributes("-topmost", True)
+    root.master.wm_attributes("-disabled", True)
+    root.master.wm_attributes("-transparentcolor", "black")
+    hWindow = pywintypes.HANDLE(int(root.master.frame(), 16))
+    exStyle = win32con.WS_EX_COMPOSITED | win32con.WS_EX_LAYERED | win32con.WS_EX_NOACTIVATE | win32con.WS_EX_TOPMOST | win32con.WS_EX_TRANSPARENT
+    win32api.SetWindowLong(hWindow, win32con.GWL_EXSTYLE, exStyle)
+    root.pack()
+    root.after(5001, root.destroy)
+    root.after(5000, update)
+    root.mainloop()
+update()
