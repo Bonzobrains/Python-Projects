@@ -1,0 +1,40 @@
+def main():
+    while True:
+        input_data = input(':')   # asks for filepath and arguments after command prompt
+        if input_data == 'q':   # for input q it exits the programm
+            break
+        try:    
+            ary = input_data.split()    # splitts input up into an array 
+            mode = ary.pop(1)   # gets the mode
+            input_data = ary.pop(0)   # resaves the input data as the first input
+            if mode == '-r':    # defines what the -r flag/argument does
+                with open(input_data, 'r') as rf:   # opens a file as rf
+                    lines = rf.readlines()
+                    count = 0
+                    for line in lines:
+                        count += 1    # line counter
+                        print(f'{count}   {line}')    
+                        rf.close()    # closes file
+            elif mode == '-a':    # defines append argument/flag
+                text = []
+                while True:
+                    lines_to_write = input()    # input for lines to write into file
+                    text.append(lines_to_write)
+                    try:
+                        if ':q' in text:    # sets quit command as :q 
+                            break
+                        elif ':w' in text:    # sets quit command as :w
+                            text.pop(-1)
+                            def write():   
+                                with open(input_data, 'a') as af:
+                                    af.writelines('\n'.join(text))    # writes saved array into file
+                                    af.close()    # closes file
+                            write()
+                            break
+                    except:
+                        continue    # continues to ask for input until q is entered
+            else:
+                raise Exception()
+        except:
+            print('?')    # lets you know that the programm has recieved invalid input
+main()    # calls main function
