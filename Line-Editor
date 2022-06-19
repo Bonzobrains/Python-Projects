@@ -23,7 +23,7 @@ def main():
                     try:
                         if ':q' in text:    # sets quit command as :q 
                             break
-                        elif ':w' in text:    # sets quit command as :w
+                        elif ':w' in text:    # sets write command as :w
                             text.pop(-1)
                             def write():   
                                 with open(input_data, 'a') as af:
