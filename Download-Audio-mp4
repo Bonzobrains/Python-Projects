@@ -1,10 +1,32 @@
-from pytube import YouTube   # a simple tool to download and filter youtube videos
+from pytube import YouTube  # a simple tool to download and filter youtube videos
+from pytube.exceptions import RegexMatchError  # module for exception handeling
 
-def damp4():
-    yt = YouTube(input('Enter url:\n'))   # asks for input and creates yt object
-    print(yt.title)   # prints video's title
-    yt.streams.filter(only_audio=True)   # sets capture to be only audio
-    stream = yt.streams.get_by_itag(140)   # sets tag for capture, bit rate, etc.
-    stream.download()   # downloads filtered audio as mp4
-    return   # stops when video has been downloaded
-damp4() # calls function
+
+def main():  # main function
+    try:  # tries to run segment of code
+        pt = str(input("Enter path:  "))  # asks for input and creates pt object
+        while True:  # creates while true loop(unsafe)
+            grab(pt)
+    except RegexMatchError:
+        quit()
+    else:
+        print(
+            "Invalid input, to exit press CTRL+D!"
+        )  # prints out a message to let the user know that they're stupid
+        grab()  # starts grab again since an input exception was caught
+
+
+def grab(pt):  # creates secondary function
+    yt = YouTube(input("Enter url:  "))  # asks for input and creates yt object
+    print(yt.title)  # prints video's title
+    yt.streams.filter(only_audio=True)  # sets capture to be only audio
+    stream = yt.streams.get_by_itag(140)  # sets tag for capture, bit rate, etc.
+    stream.download(
+        output_path=pt
+    )  # downloads filtered audio as mp4, output_path defines output directory
+    print("Task completed")  # prints task completion
+    return  # stops when video has been downloaded
+
+
+if __name__ == "__main__":  # initilzes code
+    main()  # calls main function
